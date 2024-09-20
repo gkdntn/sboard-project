@@ -1,5 +1,7 @@
 package com.sboard.controller;
 
+import com.sboard.entity.User;
+import com.sboard.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;

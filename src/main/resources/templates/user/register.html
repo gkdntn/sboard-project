@@ -193,12 +193,13 @@
 
                 console.log(mailNumber.value)
 
+
                 fetch('/sboard/user/checkUser', {
-                    method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'text/plain'
                     },
-                    body:{ code: mailNumber.value }
+                    method: 'POST',
+                    body: Number(mailNumber.value)
                 })
                     .then(resp=>resp.json())
                     .then(data=>{

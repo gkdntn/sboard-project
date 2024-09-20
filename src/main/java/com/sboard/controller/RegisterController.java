@@ -39,6 +39,7 @@ public class RegisterController {
     public int checkUser(@RequestBody String code, HttpServletRequest httpServletRequest){
 
         int result = 0;
+        log.info("23123123123123123123123123"+code);
 
         HttpSession session = httpServletRequest.getSession();
         String authCode = (String) session.getAttribute("authCode");
