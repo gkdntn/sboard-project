@@ -20,10 +20,11 @@ server:
     port: 8080
     servlet:
         context-path: /sboard
+
 spring:
     application:
         name: sboard
-        version: 0.0.4
+        version: 0.0.3
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://3.36.53.238:3306/jboard
@@ -45,3 +46,10 @@ spring:
 
     thymeleaf:
         prefix: classpath:/templates
+    servlet:
+      multipart:
+          location: uploads/
+          max-file-size: 10MB
+
+    ext:
+        version: ${ext.version}
