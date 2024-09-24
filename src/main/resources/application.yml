@@ -24,7 +24,6 @@ server:
 spring:
     application:
         name: sboard
-        version: 0.0.3
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://3.36.53.238:3306/jboard
