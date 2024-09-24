@@ -9,9 +9,10 @@ ext{
     version = '0.0.3-SNAPSHOT'
 }
 
-ProcessResources {
-    filesMatching('**/application.yml')
+processResources {
+    filesMatching('**/application.yml'){
     expand(project.properties)
+    }
 }
 
 java {
