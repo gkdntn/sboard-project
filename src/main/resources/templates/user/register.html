@@ -118,10 +118,6 @@
             registerForm.nick.addEventListener('focusout', function(){
                 const nick = registerForm.nick.value;
 
-                if(!nick.match(reNick)){
-                    resultNick.innerText = '별명이 유효하지 않습니다.';
-                    resultNick.style.color='red';
-                }
 
                 fetch('/sboard/user/checkUser?type=nick&value='+nick)
                     .then(resp=>resp.json())
@@ -140,6 +136,10 @@
                     .catch(err=>{
                         console.log(err);
                     });
+                if(!nick.match(reNick)){
+                    resultNick.innerText = '별명이 유효하지 않습니다.';
+                    resultNick.style.color='red';
+                }
 
 
             }); // end nick
