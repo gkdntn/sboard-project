@@ -1,6 +1,5 @@
 package com.sboard.dto;
 
-import com.sboard.entity.Article;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +34,9 @@ public class ArticleDTO {
     // 추가 필드
     private String nick;
 
+    private List<FileDTO> fileList;
+
+    private List<CommentDTO> commentList;
    /*
    Entity 변환 메서드 대신 ModelMapper 사용!
     */

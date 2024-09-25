@@ -18,7 +18,6 @@ public class RegisterController {
     @GetMapping("/checkUser")
     public int checkUser(@RequestParam(required = false) String type, @RequestParam(required = false) String value, HttpServletRequest httpServletRequest) {
 
-        log.info("1111111111111111111111111"+type);
         int result = 0;
             result = userService.selectCountUser(type,value);
 
@@ -27,7 +26,6 @@ public class RegisterController {
 
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("authCode", code);
-        log.info("2222222222222222222222222"+code);
 
         }
 
@@ -39,15 +37,12 @@ public class RegisterController {
     public int checkUser(@RequestBody String code, HttpServletRequest httpServletRequest){
 
         int result = 0;
-        log.info("23123123123123123123123123"+code);
 
         HttpSession session = httpServletRequest.getSession();
         String authCode = (String) session.getAttribute("authCode");
-        log.info("33333333333333333333333"+authCode);
 
         if(authCode.equals(code)) {
             result = 1;
-        log.info("33333333333333333333333444--"+result);
         }
 
         return result;

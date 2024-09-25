@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,7 +42,13 @@ public class ArticleController {
     }
 
     @GetMapping("/article/view")
-    public String view() {
+    public String view(Model model, int no) {
+
+        ArticleDTO articleDTO = articleService.selectArticle(no);
+        log.info("article-------------------"+articleDTO);
+
+        model.addAttribute(articleDTO);
+
         return "/article/view";
     }
 
@@ -55,14 +62,15 @@ public class ArticleController {
     public String write(ArticleDTO articleDTO, HttpServletRequest req) {
         String regip = req.getRemoteAddr();
         articleDTO.setRegip(regip);
-
         log.info(articleDTO);
-
-        // 글 저장
-        int ano = articleService.insertArticle(articleDTO);
 
         // 파일 업로드
         List<FileDTO> uploadedFiles = fileService.uploadFile(articleDTO);
+
+        // 글 저장
+        articleDTO.setFile(uploadedFiles.size()); // 첨부 파일 갯수 초기화
+        int ano = articleService.insertArticle(articleDTO);
+
 
         // 파일 저장
         for(FileDTO fileDTO : uploadedFiles) {
@@ -70,6 +78,12 @@ public class ArticleController {
             fileService.insertFile(fileDTO);
         }
 
+        return "redirect:/article/list";
+    }
+
+    @GetMapping("/article/delete")
+    public String delete(int no) {
+        articleService.deleteArticle(no);
         return "redirect:/article/list";
     }
 

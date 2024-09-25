@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
+
 @Log4j2
 @RequiredArgsConstructor
 @Service
@@ -27,14 +29,6 @@ public class ArticleService {
 
     public int insertArticle(ArticleDTO articleDTO) {
 
-        // 첨부 파일 객체(MultipartFile) 가져오기
-        List<MultipartFile> files = articleDTO.getFiles();
-        log.info("files size : " + files.size());
-
-        for(MultipartFile file : files) {
-            log.info("file name : " + file.getOriginalFilename());
-
-        }
 
         // ModelMapper를 이용해서 DTO를 Entity로 변환함
         Article article = modelMapper.map(articleDTO, Article.class);
@@ -45,6 +39,16 @@ public class ArticleService {
     }
 
     public ArticleDTO selectArticle(int no){
+
+        Optional<Article> optArticle = articleRepository.findById(no);
+
+        if (optArticle.isPresent()) {
+            Article article = optArticle.get();
+            log.info("articleService~~~~~~~" + article);
+
+        return modelMapper.map(article, ArticleDTO.class);
+        }
+
         return null;
     }
 
@@ -87,6 +91,8 @@ public class ArticleService {
     }
 
     public void deleteArticle(int no){
+
+          articleRepository.deleteById(no);
 
     }
 
